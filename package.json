@@ -1,0 +1,13 @@
+{
+  "name": "echogpt-monorepo",
+  "private": true,
+  "version": "0.1.0",
+  "scripts": {
+    "dev:app": "npm --prefix frontend run dev -- --port 5173 --strictPort",
+    "dev:ext": "npm --prefix extension run build && npm --prefix extension run preview -- --port 5174 --strictPort",
+    "dev:all": "concurrently -n app,ext -c magenta,cyan \"npm:dev:app\" \"npm:dev:ext\""
+  },
+  "devDependencies": {
+    "concurrently": "^10.0.6"
+  }
+}

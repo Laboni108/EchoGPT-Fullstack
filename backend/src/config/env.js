@@ -1,0 +1,11 @@
+import "dotenv/config";
+
+export const env = {
+  port: Number(process.env.PORT) || 4000,
+  nodeEnv: process.env.NODE_ENV || "development",
+  corsOrigins: (
+    process.env.CORS_ORIGINS || "http://localhost:5173,http://localhost:5174"
+  )
+    .split(",")
+    .map((origin) => origin.trim()),
+};

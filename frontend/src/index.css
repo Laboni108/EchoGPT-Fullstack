@@ -1,0 +1,62 @@
+@import "tailwindcss";
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+@layer base {
+  :root {
+    /* Enhanced High-Contrast Light Aesthetic */
+    --bg-workspace: #F1F5F9;         /* Slate-100: Soft workspace contrast */
+    --bg-surface: #FFFFFF;           /* Crisp white elevated surfaces */
+    --bg-surface-hover: #E2E8F0;     /* Clear hover response */
+    --border-subtle: #CBD5E1;        /* Darker, defined slate borders */
+    --text-main: #0F172A;            /* Deep slate black for high legibility */
+    --text-muted: #475569;           /* Slate-600: Accessible secondary text */
+    
+    /* Brand Accent Adjustments for Light Mode */
+    --cat-icon-bg: #1E1B4B;          /* Deep indigo box so the gradient icon pops */
+    --cat-brand-gradient: linear-gradient(135deg, #6D28D9, #C026D3, #D97706);
+    
+    color-scheme: light;
+  }
+
+  .dark {
+    /* Cyber Dark Aesthetic */
+    --bg-workspace: #090D16;
+    --bg-surface: #111726;
+    --bg-surface-hover: #1E293B;
+    --border-subtle: #1E293B;
+    --text-main: #F8FAFC;
+    --text-muted: #94A3B8;
+    
+    /* Brand Accent Adjustments for Dark Mode */
+    --cat-icon-bg: #111726;
+    --cat-brand-gradient: linear-gradient(135deg, #8B5CF6, #EC4899, #F59E0B);
+    
+    color-scheme: dark;
+  }
+}
+
+body {
+  background-color: var(--bg-workspace);
+  color: var(--text-main);
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+/* Glass panel utility with theme awareness */
+.glass-panel {
+  background-color: var(--bg-surface);
+  border: 1px solid var(--border-subtle);
+  box-shadow: 0 4px 12px -2px rgba(0, 0, 0, 0.05);
+}
+
+.dark .glass-panel {
+  box-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.4);
+}
+
+/* Accessible focus ring */
+*:focus-visible {
+  outline: 2px solid #7C3AED;
+  outline-offset: 2px;
+}
