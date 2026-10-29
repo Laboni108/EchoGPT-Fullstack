@@ -1,0 +1,25 @@
+# Local development database.
+# Start:  docker compose up -d
+# Stop:   docker compose down        (data is kept)
+# Reset:  docker compose down -v     (DELETES all data)
+services:
+  postgres:
+    image: postgres:16-alpine
+    container_name: echogpt-postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:-echogpt}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-echogpt_dev_password}
+      POSTGRES_DB: ${POSTGRES_DB:-echogpt}
+    ports:
+      - "${POSTGRES_PORT:-5432}:5432"
+    volumes:
+      - echogpt_pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-echogpt} -d ${POSTGRES_DB:-echogpt}"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+volumes:
+  echogpt_pgdata:
