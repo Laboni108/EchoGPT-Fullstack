@@ -2,6 +2,7 @@ import express from "express";
 import cors from "cors";
 import helmet from "helmet";
 import { env } from "./config/env.js";
+import { checkDb } from "./db/pool.js";
 
 const app = express();
 
@@ -27,6 +28,15 @@ app.get("/health", (req, res) => {
     service: "echogpt-backend",
     time: new Date().toISOString(),
   });
+});
+
+app.get("/health/db", async (req, res, next) => {
+  try {
+    const time = await checkDb();
+    res.json({ status: "ok", database: "connected", time });
+  } catch (err) {
+    next(err);
+  }
 });
 
 // unknown routes
